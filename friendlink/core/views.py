@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 # home path view
 def index(request):
-    return HttpResponse('<h1> Hello from FrindLink home page! <h1>')
+    return render(request, 'index.html')
