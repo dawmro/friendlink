@@ -6,3 +6,8 @@ from django.http import HttpResponse
 # home path view
 def index(request):
     return render(request, 'index.html')
+
+# signup view
+def signup(request):
+    return render(request, 'signup.html')
+
