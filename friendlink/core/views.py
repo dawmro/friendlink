@@ -9,5 +9,11 @@ def index(request):
 
 # signup view
 def signup(request):
-    return render(request, 'signup.html')
+    if request.method == 'POST':
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        password2 = request.POST['password2']
+    else
+        return render(request, 'signup.html')
 
