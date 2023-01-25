@@ -10,6 +10,7 @@ from . models import Profile
 def index(request):
     return render(request, 'index.html')
 
+
 # signup view
 def signup(request):
     if request.method == 'POST':
@@ -44,3 +45,7 @@ def signup(request):
     else:
         return render(request, 'signup.html')
 
+
+# signin view
+def signin(request):
+    return render(request, 'signin.html')
