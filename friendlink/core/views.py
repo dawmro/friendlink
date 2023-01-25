@@ -69,6 +69,7 @@ def signin(request):
 
 
 # logout view
+@login_required(login_url='signin')
 def logout(request):
     auth.logout(request)
     return redirect('signin')
