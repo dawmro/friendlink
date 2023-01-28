@@ -98,6 +98,20 @@ def settings(request):
             user_profile.location = location
             user_profile.save()
 
+        # if user did submit new image
+        if request.FILES.get('image') != None:
+            # get new image 
+            image = request.FILES.get('image')
+            # get bio from form field
+            bio = request.POST['bio']
+            # get location from form field
+            location = request.POST['location']
+            # save received user data
+            user_profile.profileimg = image
+            user_profile.bio = bio
+            user_profile.location = location
+            user_profile.save()
 
+        return redirect('settings')
 
     return render(request, 'setting.html', {'user_profile': user_profile})
