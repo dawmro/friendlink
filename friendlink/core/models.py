@@ -20,7 +20,7 @@ class Profile(models.Model):
 
 class Posts(models.Model):
     # long string id instead of standard django 0,1,2... ids
-    id = models.UUIDFILED(primary_key=True, default=uuid.uuid4)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.CharField(max_length=100)
     image = models.ImageField(upload_to='post_images')
     caption = models.TextField()
