@@ -18,7 +18,7 @@ class Profile(models.Model):
         return self.user.username
 
 
-class Posts(models.Model):
+class Post(models.Model):
     # long string id instead of standard django 0,1,2... ids
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.CharField(max_length=100)
