@@ -92,6 +92,12 @@ def settings(request):
             bio = request.POST['bio']
             # get location from form field
             location = request.POST['location']
+            # save received user data
+            user_profile.profileimg = image
+            user_profile.bio = bio
+            user_profile.location = location
+            user_profile.save()
+
 
 
     return render(request, 'setting.html', {'user_profile': user_profile})
