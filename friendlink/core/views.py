@@ -82,4 +82,16 @@ def logout(request):
 def settings(request):
     # get profile of currently logged in user
     user_profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        # if user did not submit new image
+        if request.FILES.get('image') == None:
+            # get current image for user profile
+            image = user_profile.profileimg
+            # get bio from form field
+            bio = request.POST['bio']
+            # get location from form field
+            location = request.POST['location']
+
+
     return render(request, 'setting.html', {'user_profile': user_profile})
