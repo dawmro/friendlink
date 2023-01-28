@@ -50,15 +50,15 @@
                             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
                                 <div class="col-span-2">
                                     <label for="">Profile Picture</label>
-                                    <input type="file" name="image" placeholder="" class="shadow-none bg-gray-100">
+                                    <input type="file" name="image" value="{{ user_profile.profileimg }}" class="shadow-none bg-gray-100">
                                 </div>                           
                                 <div class="col-span-2">
                                     <label for="about">Bio</label>  
-                                    <textarea id="about" name="bio" rows="3"  class="shadow-none bg-gray-100"></textarea>
+                                    <textarea id="about" name="bio" rows="3"  class="shadow-none bg-gray-100">{{ user_profile.bio }}</textarea>
                                 </div> 
                                 <div class="col-span-2">
                                     <label for="">Location</label>
-                                    <input type="text" name="location" placeholder="" class="shadow-none bg-gray-100">
+                                    <input type="text" name="location" value="{{ user_profile.location }}" class="shadow-none bg-gray-100">
                                 </div>
                             </div> 
                         
