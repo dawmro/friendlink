@@ -50,7 +50,8 @@
                             <div class="grid grid-cols-2 gap-3 lg:p-6 p-4">
                                 <div class="col-span-2">
                                     <label for="">Profile Picture</label>
-                                    <input type="file" name="image" value="{{ user_profile.profileimg }}" class="shadow-none bg-gray-100">
+                                    <img src="{{user_profile.profileimg.url}}" />
+                                    <input type="file" name="image" value="" class="shadow-none bg-gray-100">
                                 </div>                           
                                 <div class="col-span-2">
                                     <label for="about">Bio</label>  
