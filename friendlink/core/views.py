@@ -80,4 +80,6 @@ def logout(request):
 # settings view
 @login_required(login_url='signin')
 def settings(request):
-    return render(request, 'setting.html')
+    # get profile of currently logged in user
+    user_profile = Profile.objects.get(user=request.user)
+    return render(request, 'setting.html', {'user_profile': user_profile})
