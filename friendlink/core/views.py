@@ -115,3 +115,9 @@ def settings(request):
         return redirect('settings')
 
     return render(request, 'setting.html', {'user_profile': user_profile})
+
+
+# upload view
+@login_required(login_url='signin')
+def upload(request):
+    return HttpResponse('<h1> Upload View </h1>')
