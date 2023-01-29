@@ -10,7 +10,11 @@ from . models import Profile
 # home path view
 @login_required(login_url='signin')
 def index(request):
-    return render(request, 'index.html')
+    # object of current user
+    user_object = User.objects.get(username=request.user.username)
+    # use object of current user to get his profile
+    user_profile = Profile.objects.get(user=user_object)
+    return render(request, 'index.html', {'user_profile': user_profile})
 
 
 # signup view
