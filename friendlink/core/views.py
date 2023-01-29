@@ -124,4 +124,10 @@ def settings(request):
 # upload view
 @login_required(login_url='signin')
 def upload(request):
+    if request.method == 'POST':
+        user = request.user.username
+        image = request.FILES.get('image_upload')
+        caption = request.POST['caption']
+    else:
+        return redirect('/')
     return HttpResponse('<h1> Upload View </h1>')
