@@ -14,7 +14,10 @@ def index(request):
     user_object = User.objects.get(username=request.user.username)
     # use object of current user to get his profile
     user_profile = Profile.objects.get(user=user_object)
-    return render(request, 'index.html', {'user_profile': user_profile})
+
+    # list of posts
+    posts = Post.objects.all()
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
 
 
 # signup view
