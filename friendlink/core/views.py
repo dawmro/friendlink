@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
-from . models import Profile, Post
+from . models import Profile, Post, LikePost
 
 # Create your views here.
 
@@ -141,6 +141,33 @@ def upload(request):
     return HttpResponse('<h1> Upload View </h1>')
 
 
+# like_post view
 @login_required(login_url='signin')
 def like_post(request):
-    pass
+    # get current user name
+    username = request.user.username
+    # get liked post id
+    post_id = request.GET.get('post_id')
+
+    # get entire post object
+    post = Post.objects.get(id=post_id)
+
+    # check if like for current post from current user exists
+    like_filter = LikePost.objects.filter(post_id=post_id, username=username).first()
+   
+    # user has not liked post 
+    if like_filter == None: 
+        # create like
+        new_like = LikePost.objects.create(post_id=post_id, username=username)
+        new_like.save()
+        # increase number of likes
+        post.no_of_likes = post.no_of_likes + 1
+        post.save()
+        return redirect('/')
+    # user has liked post
+    else:
+        # remove like
+        like_filter.delete()
+        post.no_of_likes = post.no_of_likes - 1
+        post.save()
+        return redirect('/')
