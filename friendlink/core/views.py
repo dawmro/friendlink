@@ -171,3 +171,8 @@ def like_post(request):
         post.no_of_likes = post.no_of_likes - 1
         post.save()
         return redirect('/')
+
+
+# profile view
+def profile(request):
+    return render(request, 'profile.html')
