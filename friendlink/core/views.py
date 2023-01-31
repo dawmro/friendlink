@@ -174,5 +174,5 @@ def like_post(request):
 
 
 # profile view
-def profile(request):
+def profile(request, pk):
     return render(request, 'profile.html')
