@@ -174,5 +174,21 @@ def like_post(request):
 
 
 # profile view
+@login_required(login_url='signin')
 def profile(request, pk):
-    return render(request, 'profile.html')
+    # get user object
+    user_object = User.objects.get(username=pk)
+    # get user profile using user object
+    user_profile = Profile. objects.get(user=user_object)
+    # get amount of posts made by user
+    user_posts = Post.objects.filter(user=pk)
+    user_posts_length = len(user_posts)
+
+
+    context = {
+        'user_object': user_object,
+        'user_profile': user_profile,
+        'user_posts': user_posts,
+        'user_posts_length': user_posts_length
+    }
+    return render(request, 'profile.html', context)
