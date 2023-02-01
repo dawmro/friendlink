@@ -36,8 +36,8 @@
 					{% else %}
 						<span style="color: white; font-size: 27px;"><b>{{user_posts_length}} Posts</b></span>
 					{% endif %}
-					<span style="color: white; font-size: 27px;"><b>1.7m followers</b></span>
-					<span style="color: white; font-size: 27px;"><b>3.5k following</b></span>
+					<span style="color: white; font-size: 27px;"><b>{{user_followers}} followers</b></span>
+					<span style="color: white; font-size: 27px;"><b>{{user_following}} following</b></span>
 
 					<input type="hidden" value="{{user.username}}" name="follower" />
 					<input type="hidden" value="{{user_object.username}}" name="user" />
