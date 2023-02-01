@@ -184,7 +184,6 @@ def profile(request, pk):
     user_posts = Post.objects.filter(user=pk)
     user_posts_length = len(user_posts)
 
-
     context = {
         'user_object': user_object,
         'user_profile': user_profile,
@@ -192,3 +191,9 @@ def profile(request, pk):
         'user_posts_length': user_posts_length
     }
     return render(request, 'profile.html', context)
+
+
+# follow view
+@login_required(login_url='signin')
+def follow(request):
+    pass
