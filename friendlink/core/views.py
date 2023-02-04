@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . models import Profile, Post, LikePost, FollowersCount
+from itertools import chain
 
 # Create your views here.
 
@@ -15,9 +16,28 @@ def index(request):
     # use object of current user to get his profile
     user_profile = Profile.objects.get(user=user_object)
 
+    # list of users that current user is following
+    user_following_list = []
+    # posts of users that current user is following
+    feed = []
+    # objects of other users that current user is following
+    user_following = FollowersCount.objects.filter(follower=request.user.username)
+
+    for user_fol in user_following:
+        # add every user that current user is following to the list
+        user_following_list.append(user_fol.user)
+
+    for usernames in user_following_list:
+        # add posts of users that current user is following to the list
+        post_of_user_following = Post.objects.filter(user=usernames)
+        feed.append(post_of_user_following)
+
+    # create grouped iterable list of feeds
+    feed_list = list(chain(*feed))
+
     # list of posts
     posts = Post.objects.all()
-    return render(request, 'index.html', {'user_profile': user_profile, 'posts': posts})
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts': feed_list})
 
 
 # signup view
