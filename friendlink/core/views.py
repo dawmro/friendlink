@@ -254,3 +254,8 @@ def follow(request):
 
     else:
         return redirect('/')
+
+# search view
+@login_required(login_url='signin')
+def search(request):
+    return render(request, 'search.html')
