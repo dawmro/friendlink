@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from . models import Profile, Post, LikePost, FollowersCount
 from itertools import chain
+import random
 
 # Create your views here.
 
@@ -35,9 +36,39 @@ def index(request):
     # create grouped iterable list of feeds
     feed_list = list(chain(*feed))
 
-    # list of posts
-    posts = Post.objects.all()
-    return render(request, 'index.html', {'user_profile': user_profile, 'posts': feed_list})
+    # sugested users to follow
+    # get all users on platform
+    all_users = User.objects.all()
+    # list of users that user is already following
+    users_following_all = []
+
+    for user in user_following:
+        user_list = User.objects.get(username=user.user)
+        users_following_all.append(user_list)
+
+    # loop through list of all users and remove users that current user is following from list of all users, 
+    # what is left will be users that can be followed plus current user
+    new_suggestions_list = [x for x in list(all_users) if (x not in list(users_following_all))]
+    # get current user
+    current_user = User.objects.filter(username=request.user.username)
+    # remove current user from list
+    final_suggestions_list = [x for x in list(new_suggestions_list) if (x not in list(current_user))]
+    # make users order random
+    random.shuffle(final_suggestions_list)
+
+    username_profile = []
+    username_profile_list = []
+
+    for users in final_suggestions_list:
+        username_profile.append(users.id)
+
+    for ids in username_profile:
+        profile_lists = Profile.objects.filter(id_user=ids)
+        username_profile_list.append(profile_lists)
+
+    suggestions_username_profile_list = list(chain(*username_profile_list))
+
+    return render(request, 'index.html', {'user_profile': user_profile, 'posts': feed_list, 'suggestions_username_profile_list': suggestions_username_profile_list[:4]})
 
 
 # signup view
